@@ -14,4 +14,7 @@ router.post('/island', (req,res,next)=>{
 router.put('/island',(req,res,next)=>{
   island.updateItem(req,res)
 })
+router.delete('/island',(req,res,next)=>{
+  island.deleteItem(req,res)
+})
 module.exports = router;

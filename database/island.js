@@ -7,10 +7,21 @@ const island = {
             res.send(result)
         })
     },
+    async deleteItem(req,res){
+        let item = req.body
+        let sql = `DELETE FROM island WHERE id = ?`
+        con.query(sql,[item.id],(err,data)=> {
+            if (err) {
+                res.send('删除失败')
+            } else {
+                res.send('删除成功')
+            }
+        })
+    },
     async updateItem(req,res){
         let item = req.body
-        let sql = `UPDATE island SET name ="${item.name}",description="${item.description} ,WHERE id= ${parseInt(item.id)}"`
-        con.query(sql,(error,data)=>{
+        let sql = `UPDATE island SET name = ?,description= ? WHERE id= ?`
+        con.query(sql,[item.name,item.description,item.id],(error,data)=>{
             if (error) {
                 res.send('更新失败')
             } else {
