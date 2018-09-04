@@ -31,25 +31,13 @@ const island = {
     },
     async insertItem(req, res) {
         let item = req.body
-        let sql = `INSERT INTO island (name,description) VALUES ("${item.name}","${item.description}")`
-        let findSql = 'SELECT name FROM island'
-        con.query(findSql, (error, data) => {
-            let isExist = false
-            data.forEach(obj => {
-                if (obj.name == item.name) {
-                    isExist = true
-                }
-            });
-            if (isExist) {
-                res.send('已有该数据')
+        let sql = `INSERT INTO island (name,description) VALUES (?,?)`
+        con.query(sql,[item.name,item.description], (err, result) => {
+            console.log(err)
+            if (err) {
+                res.send('保存失败')
             } else {
-                con.query(sql, (err, result) => {
-                    if (err) {
-                        res.send('保存失败')
-                    } else {
-                        res.send('保存成功')
-                    }
-                })
+                res.send('保存成功')
             }
         })
 
