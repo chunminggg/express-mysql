@@ -36,6 +36,7 @@ const island = {
             console.log(err)
             if (err) {
                 res.send('保存失败')
+                throw err
             } else {
                 res.send('保存成功')
             }
